@@ -1,3 +1,3 @@
-import InformationSelector from './InformationSelector'
+import InformationView from './InformationView'
 
-export default InformationSelector
+export default InformationView

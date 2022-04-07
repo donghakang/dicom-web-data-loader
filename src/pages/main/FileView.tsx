@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { useEffect } from 'react'
 import { useFileDispatch } from '../../context/file'
 
-const FileSelector: React.FC = () => {
+const FileView: React.FC = () => {
   const fileRef = useRef<HTMLInputElement | null>(null)
   const folderRef = useRef<HTMLInputElement | null>(null)
 
@@ -63,4 +63,4 @@ const FileSelector: React.FC = () => {
   )
 }
 
-export default FileSelector
+export default FileView

@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import StyledInformationView from './style'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { css } from '@emotion/react'
+import {
+  useInformationDispatch,
+  useInformationState,
+} from '../../context/information'
 
 export interface InfoInterface {
   id: string
@@ -22,12 +26,6 @@ const Checkbox: React.FC<InfoInterface & ListInterface> = ({
   setList,
 }) => {
   function handleChangeCheckbox() {
-    // console.log('title', title, list)
-
-    console.log(
-      '///',
-      list.find((element) => element.id === id)
-    )
     const cloneList = [...list]
     cloneList[cloneList.findIndex((element) => element.id === id)].checked =
       !cloneList[cloneList.findIndex((element) => element.id === id)].checked
@@ -36,12 +34,7 @@ const Checkbox: React.FC<InfoInterface & ListInterface> = ({
   }
 
   return (
-    <div
-      onClick={handleChangeCheckbox}
-      css={css`
-        display: flex;
-      `}
-    >
+    <label>
       <input
         type="checkbox"
         name="checkbox"
@@ -50,19 +43,14 @@ const Checkbox: React.FC<InfoInterface & ListInterface> = ({
         onChange={handleChangeCheckbox}
       />
       <span className="info">{title}</span>
-    </div>
+    </label>
   )
 }
 
-function InformationSelector() {
-  const [list, setList] = useState<Array<InfoInterface>>([
-    { id: '1', title: 'Patient Name', checked: false },
-    { id: '2', title: 'Patient ID', checked: false },
-    { id: '3', title: 'Study ID', checked: false },
-    { id: '4', title: 'Series Number', checked: false },
-    { id: '5', title: 'Dimension', checked: false },
-    { id: '6', title: 'Series Description', checked: false },
-  ])
+const InformationView: React.FC = () => {
+  const state = useInformationState()
+  const dispatch = useInformationDispatch()
+  const [list, setList] = useState<Array<InfoInterface>>(state)
 
   function handleDragEnd(result: any) {
     if (!result.destination) return
@@ -71,12 +59,12 @@ function InformationSelector() {
     const [reorderedItem] = items.splice(result.source.index, 1)
     items.splice(result.destination.index, 0, reorderedItem)
 
+    console.log(items)
     setList(items)
-    console.log('drag ended', items)
   }
 
   function finalizeInformatics() {
-    console.log(list)
+    dispatch({ type: 'SET_INFO', info: list })
   }
 
   return (
@@ -119,4 +107,4 @@ function InformationSelector() {
   )
 }
 
-export default InformationSelector
+export default InformationView

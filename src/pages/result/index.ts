@@ -1,3 +1,3 @@
-import ResultPage from './ResultPage'
+import ResultView from './ResultView'
 
-export default ResultPage
+export default ResultView

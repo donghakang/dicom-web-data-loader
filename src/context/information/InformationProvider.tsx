@@ -1,9 +1,10 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react'
-import { InfoInterface } from '../../pages/information/InformationSelector'
+import { InfoInterface } from '../../pages/information/InformationView'
 
 type State = InfoInterface[]
 type Action =
   | { type: 'SET_INFO'; info: InfoInterface[] }
+  | { type: 'HANDLE_INFO_BY_ID'; id: string }
   | { type: 'RESET_INFO' }
 
 type InfoDispatch = Dispatch<Action>

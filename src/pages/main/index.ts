@@ -1,3 +1,3 @@
-import FileSelector from './FileSelector'
+import FileView from './FileView'
 
-export default FileSelector
+export default FileView
