@@ -78,21 +78,23 @@ export const finalizeDicomData = (
   Object.keys(sorted).forEach((patient_id: string) => {
     Object.keys(sorted[patient_id]).forEach((series_uid: string) => {
       const dicomDataBySeriesUID = sorted[patient_id][series_uid]
-      const selectedInfoDicomData = dicomDataBySeriesUID.map(
-        (data: DICOMDatasetInterface) =>
-          info.map((title: string) => data[title])
+
+      const metadata = info.reduce(
+        (arr, value) => ({ ...arr, [value]: dicomDataBySeriesUID[0][value] }),
+        {}
       )
 
       //TODO: without directly calling selectedInfoDicomData, create another
       // loop that will make another row
-      result.push([
-        patient_id,
-        series_uid,
-        dicomDataBySeriesUID.length,
-        selectedInfoDicomData,
-      ])
+      result.push({
+        PatientID: patient_id,
+        SeriesInstanceUID: series_uid,
+        SeriesCount: dicomDataBySeriesUID.length,
+        ...metadata,
+        // selectedInfoDicomData,
+      })
     })
   })
-  console.log('🎉', result)
-  return sorted
+
+  return result
 }

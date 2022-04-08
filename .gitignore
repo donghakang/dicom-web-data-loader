@@ -1,7 +1,11 @@
 node_modules
+
+# build env
 dist
 .env
 
+# package
 package-lock.json
 
+# eslint
 .eslintcache

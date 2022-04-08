@@ -21,23 +21,19 @@ interface DCMProcessInterface {
 const useProcessDicom = () => {
   const [result, setResult] = useState<DCMProcessInterface>({
     loading: false,
-    status: 'ok',
+    status: '',
     data: [],
   })
-  const [data, setData] = useState<any[]>([])
 
   const { files } = useFileState()
   const informationState = useInformationState()
-
-  const resetState = () => {
-    //
-  }
 
   /**
    * 파일 데이터를 이용하여 dicom 이미지 데이터를 가지고 온다
    */
   const fetchData = async () => {
     try {
+      setResult({ loading: true, status: 'pending', data: [] })
       Promise.all(
         files.map(async (file: File) => {
           const fileImageId = await generateImageId(file)
@@ -54,14 +50,18 @@ const useProcessDicom = () => {
         .then((result: SortedDICOMInterface) =>
           finalizeDicomData(result, informationState)
         )
+        .then((result: any) => {
+          setResult({ loading: false, status: 'ok', data: result })
+        })
     } catch {
+      setResult({ loading: false, status: 'error', data: [] })
       throw new Error('😖 useProcessDicom.tsx: data processing failed')
     }
   }
 
   useEffect(() => {
     fetchData()
-  }, [files])
+  }, [files, informationState])
 
   return result
 }

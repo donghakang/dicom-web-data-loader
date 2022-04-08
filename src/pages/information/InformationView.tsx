@@ -6,6 +6,7 @@ import {
   useInformationDispatch,
   useInformationState,
 } from '../../context/information'
+import { Link } from 'react-router-dom'
 
 export interface InfoInterface {
   id: string
@@ -69,40 +70,22 @@ const InformationView: React.FC = () => {
 
   return (
     <StyledInformationView>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="todos">
-          {(provided: any) => (
-            <ul
-              className="todos"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {list.map(({ id, title, checked }, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided: any) => (
-                    <li
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}
-                      {...provided.draggableProps}
-                    >
-                      {/* {title} */}
-                      <Checkbox
-                        id={id}
-                        title={title}
-                        checked={checked}
-                        list={list}
-                        setList={setList}
-                      />
-                    </li>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
-      <button onClick={finalizeInformatics}>Submit</button>
+      <ul>
+        {list.map(({ id, title, checked }, index) => (
+          <li key={index}>
+            <Checkbox
+              id={id}
+              title={title}
+              checked={checked}
+              list={list}
+              setList={setList}
+            />
+          </li>
+        ))}
+      </ul>
+      <Link to="/result" onClick={finalizeInformatics}>
+        Submit
+      </Link>
     </StyledInformationView>
   )
 }

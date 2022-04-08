@@ -19,6 +19,7 @@ module.exports = {
     hot: true,
     host: 'localhost',
     port: 2222,
+    historyApiFallback: true,
   },
   output: {
     filename: '[name].js',
@@ -57,6 +58,7 @@ module.exports = {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
         type: 'asset/resource',
+        use: 'file-loader',
         generator: {
           filename: './[name][ext]',
         },

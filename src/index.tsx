@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import GlobalStyles from './style/global'
 import theme from './style/theme'
-import * as Styled from './style/mode'
 import FileProvider from './context/file'
 import InformationProvider from './context/information'
 
