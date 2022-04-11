@@ -13,6 +13,7 @@ import {
   col2row,
 } from '../../utils/helper/csvHelper'
 import useProcessDicom from '../../utils/hook/useProcessDicom'
+import * as Styled from './style'
 
 const ResultView: React.FC = () => {
   const fileState = useFileState()
@@ -35,7 +36,11 @@ const ResultView: React.FC = () => {
   }, [status])
 
   return (
-    <div>
+    <Styled.ResultView>
+      <div className="result-container">
+        <h1>Result</h1>
+        <h3>Switch columns by drag & drop</h3>
+      </div>
       {tableset.length > 0 && (
         <>
           <DataTable
@@ -43,21 +48,28 @@ const ResultView: React.FC = () => {
             tableset={tableset}
             setTableset={setTableset}
           />
-          <Link
-            to="/"
-            onClick={() => {
-              fileDispatch({ type: 'RESET_FILES' })
-              infoDispatch({ type: 'RESET_INFO' })
-            }}
-          >
-            Reset
-          </Link>
-          <a href={downloadCSV(toCSV(col2row(tableset)))} download="">
-            Click to pusblish
-          </a>
+          <div className="result-container result-button-container">
+            <Link
+              className="button-container cancel"
+              to="/"
+              onClick={() => {
+                fileDispatch({ type: 'RESET_FILES' })
+                infoDispatch({ type: 'RESET_INFO' })
+              }}
+            >
+              Reset
+            </Link>
+            <a
+              href={downloadCSV(toCSV(col2row(tableset)))}
+              download=""
+              className="button-container"
+            >
+              Click to pusblish
+            </a>
+          </div>
         </>
       )}
-    </div>
+    </Styled.ResultView>
   )
 }
 

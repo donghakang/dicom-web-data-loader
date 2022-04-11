@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import * as Styled from './style'
 
 const DataTable: React.FC<{
   data: any
@@ -26,47 +27,56 @@ const DataTable: React.FC<{
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="todos" direction="horizontal" type="column">
-        {(provided: any) => (
-          <div
-            className="tableset"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            css={css`
-              display: flex;
-            `}
-          >
-            {tableset.map(
-              (
-                {
-                  id,
-                  title,
-                  content,
-                }: { id: string; title: string; content: string[] },
-                index: number
-              ) => (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided: any) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}
-                      {...provided.draggableProps}
-                    >
-                      <div>{title} </div>
-                      {content.map((data: string, index: number) => (
-                        <div key={index}>{data}</div>
-                      ))}
-                    </div>
-                  )}
-                </Draggable>
-              )
+    <Styled.DataTable>
+      <div className="datatable-container">
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="todos" direction="horizontal" type="column">
+            {(provided: any) => (
+              <div
+                className="tableset"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                css={css`
+                  display: flex;
+                `}
+              >
+                {tableset.map(
+                  (
+                    {
+                      id,
+                      title,
+                      content,
+                    }: { id: string; title: string; content: string[] },
+                    index: number
+                  ) => (
+                    <Draggable key={id} draggableId={id} index={index}>
+                      {(provided: any) => (
+                        <div
+                          className="table-column"
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                        >
+                          <strong>{title} </strong>
+                          {content.map((data: string, index: number) =>
+                            data ? (
+                              <div key={index}>{data}</div>
+                            ) : (
+                              <div>&nbsp;</div>
+                            )
+                          )}
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                )}
+                {provided.placeholder}
+              </div>
             )}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+          </Droppable>
+        </DragDropContext>
+      </div>
+    </Styled.DataTable>
   )
 }
 

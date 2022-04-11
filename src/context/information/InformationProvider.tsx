@@ -10,12 +10,19 @@ type Action =
 type InfoDispatch = Dispatch<Action>
 
 const sampleState = [
-  { id: '1', title: 'Patient Name', checked: false },
-  { id: '2', title: 'Patient ID', checked: false },
-  { id: '3', title: 'Study ID', checked: false },
-  { id: '4', title: 'Series Number', checked: false },
-  { id: '5', title: 'Dimension', checked: false },
-  { id: '6', title: 'Series Description', checked: false },
+  { id: '1', title: 'Patient Name', placeholder: '', checked: false },
+  { id: '2', title: 'Patient ID', placeholder: '', checked: false },
+  { id: '3', title: 'Study ID', placeholder: '', checked: false },
+  { id: '4', title: 'Series ID', placeholder: '', checked: false },
+  { id: '5', title: 'Series Number', placeholder: '', checked: false },
+  { id: '6', title: 'Series Count', placeholder: '', checked: false },
+  { id: '7', title: 'Dimension', placeholder: '250x250x250', checked: false },
+  { id: '8', title: 'Accession Number', placeholder: '', checked: false },
+  { id: '9', title: 'Series Description', placeholder: '', checked: false },
+  { id: '10', title: 'Convolution Kernel', placeholder: '', checked: false },
+  { id: '11', title: 'Acquisition Date', placeholder: '', checked: false },
+  { id: '13', title: 'Slice Thickness', placeholder: '', checked: false },
+  { id: '14', title: 'Filepath', placeholder: '', checked: false },
 ]
 
 // context

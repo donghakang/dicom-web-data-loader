@@ -79,17 +79,33 @@ export const finalizeDicomData = (
     Object.keys(sorted[patient_id]).forEach((series_uid: string) => {
       const dicomDataBySeriesUID = sorted[patient_id][series_uid]
 
-      const metadata = info.reduce(
-        (arr, value) => ({ ...arr, [value]: dicomDataBySeriesUID[0][value] }),
-        {}
-      )
+      console.log('✨', info, dicomDataBySeriesUID)
+
+      const metadata = info.reduce((arr, value) => {
+        if (value === 'SeriesCount') {
+          return { ...arr, [value]: dicomDataBySeriesUID.length }
+        }
+        if (value === 'SeriesID') {
+          return {
+            ...arr,
+            [value]: dicomDataBySeriesUID[0]['SeriesInstanceUID'],
+          }
+        }
+        if (value === 'Filepath') {
+          return { ...arr, [value]: 'File path ...' }
+        }
+        if (value === 'Dimension') {
+          return {
+            ...arr,
+            [value]: `${dicomDataBySeriesUID[0]['Rows']}x${dicomDataBySeriesUID[0]['Columns']}x${dicomDataBySeriesUID.length}`,
+          }
+        }
+        return { ...arr, [value]: dicomDataBySeriesUID[0][value] }
+      }, {})
 
       //TODO: without directly calling selectedInfoDicomData, create another
       // loop that will make another row
       result.push({
-        PatientID: patient_id,
-        SeriesInstanceUID: series_uid,
-        SeriesCount: dicomDataBySeriesUID.length,
         ...metadata,
         // selectedInfoDicomData,
       })

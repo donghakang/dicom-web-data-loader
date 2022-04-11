@@ -1,8 +1,15 @@
 import styled from '@emotion/styled'
 
 export const FileTextContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+
   h1 {
-    font-size: 4.25rem;
+    margin-top: 60px;
     font-weight: 900;
   }
 
@@ -18,7 +25,7 @@ export const FileTextContainer = styled.div`
       cursor: pointer;
 
       &:hover {
-        color: blue;
+        color: #2ecc71;
       }
     }
 
@@ -27,7 +34,7 @@ export const FileTextContainer = styled.div`
       color: green;
 
       &:hover {
-        color: blue;
+        color: #2ecc71;
       }
     }
   }
