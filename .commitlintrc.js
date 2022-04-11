@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@commitlint/config-conventional', 'gitmoji'],
+  extends: ['gitmoji', '@gitmoji/commit-types'],
   rules: {
     'type-enum': [
       2,
